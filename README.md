@@ -1,10 +1,10 @@
 # qlik-cloud-agents
 
-Independent Claude Code plugin for Qlik cloud. Version 2.1.0.
+Independent Claude Code plugin for Qlik cloud. Version 2.1.1.
 
 ## Install
 
-    /plugin marketplace add shaunsomai/qlik-cloud-agents
+    /plugin marketplace add https://github.com/shaunsomai/qlik-cloud-agents.git --sparse .claude-plugin plugins
     /plugin install qlik-cloud-agents@qlik-cloud-agents-marketplace
 
 Private repository: collaborators need GitHub access and authenticated Git. Remove duplicate legacy installations first. Local testing: claude --plugin-dir ./plugins/qlik-cloud-agents

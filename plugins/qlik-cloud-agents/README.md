@@ -35,7 +35,7 @@ No agent writes to the tenant unless the task it was dispatched with contains a 
 ## Install
 
 ```
-/plugin marketplace add shaunsomai/qlik-cloud-agents
+/plugin marketplace add https://github.com/shaunsomai/qlik-cloud-agents.git --sparse .claude-plugin plugins
 /plugin install qlik-cloud-agents@qlik-cloud-agents-marketplace
 ```
 

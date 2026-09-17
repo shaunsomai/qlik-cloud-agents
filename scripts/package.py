@@ -1,10 +1,10 @@
-﻿from pathlib import Path
+from pathlib import Path
 import json,re,sys,subprocess,zipfile,tempfile,hashlib
 ROOT=Path(__file__).resolve().parents[1]
 def validate(root):
  m=json.loads((root/'.claude-plugin/marketplace.json').read_text()); assert len(m['plugins'])==1
  i=m['plugins'][0]; p=(root/i['source']).resolve(); assert p.is_relative_to(root.resolve())
- meta=json.loads((p/'.claude-plugin/plugin.json').read_text()); assert meta['name']==i['name']; assert meta['version']=='2.1.0'
+ meta=json.loads((p/'.claude-plugin/plugin.json').read_text()); assert meta['name']==i['name']; assert re.fullmatch(r'\d+\.\d+\.\d+',meta['version'])
  names=[]
  for f in (p/'agents').glob('*.md'):
   t=f.read_text(encoding='utf-8'); assert t.startswith('---\n'); h=t.split('---',2)[1]; n=re.search(r'^name:\s*(.+)$',h,re.M).group(1).strip(); assert n==f.stem; assert 'description:' in h; names.append(n)
