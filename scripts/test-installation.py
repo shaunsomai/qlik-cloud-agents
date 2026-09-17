@@ -20,8 +20,23 @@ def main():
         if '--github' in sys.argv:args+=['--sparse','.claude-plugin','plugins']
         run(*args)
         installed=json.loads(run('plugin','install',name+'@'+name+'-marketplace','--json'))
-        assert installed['outcome']=='installed',installed
+        assert installed['outcome']=='ok',installed
         listed=json.loads(run('plugin','list','--json'))
-        assert any(p.get('id')==name+'@'+name+'-marketplace' for p in listed),listed
+        matches=[p for p in listed if p.get('id')==name+'@'+name+'-marketplace']
+        assert len(matches)==1 and matches[0]['enabled'],listed
+        cached=Path(matches[0]['installPath'])
+        run('plugin','validate',str(cached))
+        for asset in ['LICENSE','SHARING.md','HOUSE-CONVENTIONS.md','skills/qlik-theming/SKILL.md','assets/themes/sales-demo-theme/theme.json']:
+            assert (cached/asset).is_file(),asset
+        metadata=json.loads((cached/'.claude-plugin/plugin.json').read_text())
+        if 'mcpServers' in metadata:
+            cfg=metadata['mcpServers']['qlik-desktop']
+            entry=cfg['args'][0].replace('${CLAUDE_PLUGIN_ROOT}',str(cached))
+            messages=[{'jsonrpc':'2.0','id':1,'method':'initialize','params':{'protocolVersion':'2025-06-18'}},{'jsonrpc':'2.0','id':2,'method':'tools/list'}]
+            response=subprocess.run([sys.executable,entry],input='\n'.join(map(json.dumps,messages))+'\n',capture_output=True,encoding='utf-8',timeout=15,check=True,env=env)
+            rows=list(map(json.loads,response.stdout.splitlines()))
+            assert rows[0]['result']['serverInfo']['name']=='qlik-desktop'
+            assert len(rows[1]['result']['tools'])==39
+            print('Installed Desktop MCP initializes and exposes 39 tools')
         print(name+': real CLI validation and isolated installation passed')
 if __name__=='__main__':main()
