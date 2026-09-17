@@ -1,0 +1,10 @@
+{
+  "name": "qlik-cloud-agents",
+  "description": "Six subagents for Qlik Sense SaaS (Qlik Cloud) development \u2014 app inspection, load-script writing and review, front-end building, architecture, and tenant administration \u2014 built around a strict write-approval protocol so nothing touches a live tenant without an explicit APPROVED line. Requires a Qlik Cloud MCP connector exposing qlik_* tools.",
+  "version": "2.1.0",
+  "author": {
+    "name": "Shaun Somai"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/shaunsomai/qlik-cloud-agents"
+}

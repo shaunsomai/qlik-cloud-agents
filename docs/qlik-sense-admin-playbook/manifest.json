@@ -1,0 +1,1449 @@
+{
+  "collection": "Qlik Sense Admin Playbook Markdown summaries",
+  "source_root": "https://help.qlik.com/en-US/qs-admin-playbook/Content/",
+  "retrieved_on": "2026-09-16",
+  "content_kind": "original_summary",
+  "source_page_count": 76,
+  "cadence_discrepancies": [
+    {
+      "path": "asset_management/apps/flag_unused_base_community_sheets.htm",
+      "detail_cadence": "Monthly",
+      "home_cadence": "Quarterly"
+    },
+    {
+      "path": "audit/audit_user_access.htm",
+      "detail_cadence": "Quarterly",
+      "home_cadence": "Monthly"
+    }
+  ],
+  "source_link_issues": [
+    {
+      "url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/..%5Casset_management%5Cdata_connections%5Canalyze_data_connections.htm",
+      "issue": "HTTP Error 403: Forbidden",
+      "resolved_markdown_path": "asset_management/data_connections/analyze_data_connections.md"
+    }
+  ],
+  "pages": [
+    {
+      "title": "About Qlik Sense Admin Playbook",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/about.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "about.md",
+      "related_markdown_paths": [],
+      "external_references": []
+    },
+    {
+      "title": "Asset Management",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "asset_management.md",
+      "related_markdown_paths": [
+        "asset_management/apps.md",
+        "asset_management/custom_properties.md",
+        "asset_management/data_connections.md",
+        "asset_management/extensions.md",
+        "asset_management/qvds.md",
+        "asset_management/security_rules.md",
+        "asset_management/streams.md",
+        "asset_management/tasks.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Apps",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/apps.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "asset_management/apps.md",
+      "related_markdown_paths": [
+        "asset_management/apps/analyze_app_adoption.md",
+        "asset_management/apps/analyze_app_metadata_analyzer.md",
+        "asset_management/apps/check_new_apps.md",
+        "asset_management/apps/flag_unused_base_community_sheets.md",
+        "asset_management/apps/optimize_sheet_order_for_adoption.md",
+        "asset_management/apps/remove_quarantine_unused_apps.md",
+        "asset_management/apps/remove_unused_private_sheets.md",
+        "asset_management/apps/review_app_cache_warming.md",
+        "asset_management/apps/review_pinning_load_balancing.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Analyze App Adoption",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/apps/analyze_app_adoption.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Quarterly",
+      "markdown_path": "asset_management/apps/analyze_app_adoption.md",
+      "related_markdown_paths": [
+        "asset_management/apps/remove_quarantine_unused_apps.md",
+        "tooling/operations_monitor.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Analyze App Metadata Analyzer",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/apps/analyze_app_metadata_analyzer.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Weekly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "development",
+        "production"
+      ],
+      "homepage_cadence": "Weekly",
+      "markdown_path": "asset_management/apps/analyze_app_metadata_analyzer.md",
+      "related_markdown_paths": [
+        "tooling/app_metadata_analyzer.md",
+        "system_planning/review_update_capacity_plan.md",
+        "asset_management/apps/analyze_app_adoption.md",
+        "asset_management/apps/review_pinning_load_balancing.md"
+      ],
+      "external_references": [
+        "https://youtu.be/M6qluodkjWQ",
+        "https://www.qlik.com/us/products/qlik-alerting",
+        "https://community.qlik.com/t5/Qlik-Monitoring-Administration/App-Metadata-Analyzer-Windows/gpm-p/1592163",
+        "https://community.qlik.com/t5/Qlik-Monitoring-Administration/App-Metadata-Analyzer-Windows/gpm-p/1592163?attachment-id=175083",
+        "https://community.qlik.com/t5/Qlik-Design-Blog/Symbol-Tables-and-Bit-Stuffed-Pointers/ba-p/1475369",
+        "https://qlikviewcookbook.com/tools#squelch-taas-accordion-shortcode-content-5",
+        "https://community.qlik.com/t5/Qlik-Design-Blog/Big-Data-with-Qlik-One-method-does-not-fit-all/ba-p/1474484",
+        "https://help.qlik.com/en-US/sense/Subsystems/Hub/Content/DataSource/Manage-big-data.htm",
+        "https://diagnostictoolkit.qlik-poc.com/.",
+        "https://community.qlik.com/t5/Qlik-Design-Blog/Synthetic-Keys/ba-p/1472634",
+        "https://qlikviewcookbook.com/2015/06/the-impact-of-data-islands-on-cache-and-cpu"
+      ]
+    },
+    {
+      "title": "Check for New Apps",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/apps/check_new_apps.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Weekly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "development",
+        "production"
+      ],
+      "homepage_cadence": "Weekly",
+      "markdown_path": "asset_management/apps/check_new_apps.md",
+      "related_markdown_paths": [
+        "tooling/app_metadata_analyzer.md",
+        "tooling/operations_monitor.md",
+        "tooling/qlik_cli.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Flag Unused Base/Community Sheets",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/apps/flag_unused_base_community_sheets.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Monthly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production w/ self-service"
+      ],
+      "homepage_cadence": "Quarterly",
+      "markdown_path": "asset_management/apps/flag_unused_base_community_sheets.md",
+      "related_markdown_paths": [
+        "asset_management/apps/remove_unused_private_sheets.md",
+        "asset_management/apps/remove_quarantine_unused_apps.md",
+        "tooling/operations_monitor.md",
+        "tooling/qlik_cli.md"
+      ],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense-developer/Subsystems/EngineAPI/Content/Sense_EngineAPI/introducing-engine-API.htm",
+        "https://help.qlik.com/en-US/sense-developer/Subsystems/APIs/Content/Sense_ClientAPIs/enigmajs/enigmajs-introduction.htm",
+        "https://github.com/eapowertools/qs-admin-playbook/tree/master/scripts/remove_tagged_community_sheets"
+      ]
+    },
+    {
+      "title": "Optimize Sheet Order for Adoption",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/apps/optimize_sheet_order_for_adoption.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Quarterly",
+      "markdown_path": "asset_management/apps/optimize_sheet_order_for_adoption.md",
+      "related_markdown_paths": [
+        "asset_management/apps/analyze_app_adoption.md",
+        "asset_management/apps/flag_unused_base_community_sheets.md",
+        "tooling/operations_monitor.md"
+      ],
+      "external_references": [
+        "https://community.qlik.com/t5/Qlik-Design-Blog/DAR-methodology/ba-p/1466733"
+      ]
+    },
+    {
+      "title": "Remove/Quarantine Unused Apps",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/apps/remove_quarantine_unused_apps.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "development",
+        "production"
+      ],
+      "homepage_cadence": "Quarterly",
+      "markdown_path": "asset_management/apps/remove_quarantine_unused_apps.md",
+      "related_markdown_paths": [
+        "tooling/operations_monitor.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Remove Unused Private Sheets",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/apps/remove_unused_private_sheets.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production w/ self-service"
+      ],
+      "homepage_cadence": "Quarterly",
+      "markdown_path": "asset_management/apps/remove_unused_private_sheets.md",
+      "related_markdown_paths": [
+        "asset_management/apps/flag_unused_base_community_sheets.md",
+        "asset_management/apps/remove_quarantine_unused_apps.md",
+        "tooling/operations_monitor.md",
+        "tooling/qlik_cli.md"
+      ],
+      "external_references": [
+        "https://youtu.be/5NMKxDxAa3Q",
+        "https://help.qlik.com/en-US/sense-developer/Subsystems/EngineAPI/Content/Sense_EngineAPI/introducing-engine-API.htm",
+        "https://help.qlik.com/en-US/sense-developer/Subsystems/APIs/Content/Sense_ClientAPIs/enigmajs/enigmajs-introduction.htm",
+        "https://github.com/eapowertools/qs-admin-playbook/tree/master/scripts/remove_tagged_private_sheets"
+      ]
+    },
+    {
+      "title": "Review App Cache Warming",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/apps/review_app_cache_warming.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Quarterly",
+      "markdown_path": "asset_management/apps/review_app_cache_warming.md",
+      "related_markdown_paths": [
+        "tooling/cache_warming.md",
+        "asset_management/apps/analyze_app_adoption.md",
+        "tooling/app_metadata_analyzer.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Review Pinning/Load Balancing",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/apps/review_pinning_load_balancing.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Quarterly",
+      "markdown_path": "asset_management/apps/review_pinning_load_balancing.md",
+      "related_markdown_paths": [
+        "tooling/app_metadata_analyzer.md"
+      ],
+      "external_references": [
+        "https://community.qlik.com/t5/Qlik-Sense-Documents-Videos/Using-Rules-to-segregate-Consumption-from-Development/ta-p/1687033"
+      ]
+    },
+    {
+      "title": "Custom Properties",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/custom_properties.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "asset_management/custom_properties.md",
+      "related_markdown_paths": [
+        "asset_management/custom_properties/custom_properties.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Check for New/Modified Custom Properties",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/custom_properties/custom_properties.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Weekly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "development",
+        "production"
+      ],
+      "homepage_cadence": "Weekly",
+      "markdown_path": "asset_management/custom_properties/custom_properties.md",
+      "related_markdown_paths": [
+        "tooling/qlik_cli.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Data Connections",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/data_connections.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "asset_management/data_connections.md",
+      "related_markdown_paths": [
+        "asset_management/data_connections/analyze_data_connections.md",
+        "asset_management/data_connections/check_new_data_connections.md",
+        "asset_management/data_connections/remove_unused_data_connections.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Analyze Data Connections",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/data_connections/analyze_data_connections.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Monthly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "development",
+        "production"
+      ],
+      "homepage_cadence": "Monthly",
+      "markdown_path": "asset_management/data_connections/analyze_data_connections.md",
+      "related_markdown_paths": [
+        "tooling/data_connection_analyzer.md",
+        "asset_management/data_connections/remove_unused_data_connections.md",
+        "backup_and_archiving/archive_old_archived_logs.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Check for New Data Connections",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/data_connections/check_new_data_connections.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Weekly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Weekly",
+      "markdown_path": "asset_management/data_connections/check_new_data_connections.md",
+      "related_markdown_paths": [
+        "tooling/data_connection_analyzer.md",
+        "tooling/qlik_cli.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Remove Unused Data Connections",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/data_connections/remove_unused_data_connections.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Monthly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "development",
+        "production"
+      ],
+      "homepage_cadence": "Monthly",
+      "markdown_path": "asset_management/data_connections/remove_unused_data_connections.md",
+      "related_markdown_paths": [
+        "tooling/data_connection_analyzer.md"
+      ],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense-developer/APIs/QIXAPI/index.html?page=8",
+        "https://help.qlik.com/en-US/sense-developer/Subsystems/EngineAPI/Content/Sense_EngineAPI/introducing-engine-API.htm"
+      ]
+    },
+    {
+      "title": "Extensions",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/extensions.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "asset_management/extensions.md",
+      "related_markdown_paths": [
+        "asset_management/extensions/analyze_curate_extensions.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Analyze/Curate Extensions",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/extensions/analyze_curate_extensions.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "all"
+      ],
+      "homepage_cadence": "Quarterly",
+      "markdown_path": "asset_management/extensions/analyze_curate_extensions.md",
+      "related_markdown_paths": [
+        "tooling/extension_usage_dashboard.md"
+      ],
+      "external_references": [
+        "https://github.com/eapowertools/qs-extension-usage-dashboard"
+      ]
+    },
+    {
+      "title": "QVDs",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/qvds.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "asset_management/qvds.md",
+      "related_markdown_paths": [
+        "asset_management/qvds/review_optimize_qvds.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Review/Optimize QVDs",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/qvds/review_optimize_qvds.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "development",
+        "production"
+      ],
+      "homepage_cadence": "Quarterly",
+      "markdown_path": "asset_management/qvds/review_optimize_qvds.md",
+      "related_markdown_paths": [
+        "tooling/qvd_monitor.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Security Rules",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/security_rules.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "asset_management/security_rules.md",
+      "related_markdown_paths": [
+        "asset_management/security_rules/analyze_security_rules.md",
+        "asset_management/security_rules/check_security_rules.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Analyze Security Rules",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/security_rules/analyze_security_rules.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Monthly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "development",
+        "production"
+      ],
+      "homepage_cadence": "Monthly",
+      "markdown_path": "asset_management/security_rules/analyze_security_rules.md",
+      "related_markdown_paths": [
+        "audit/audit_user_access.md"
+      ],
+      "external_references": [
+        "https://github.com/eapowertools/qs-security-rule-analyzer/releases"
+      ]
+    },
+    {
+      "title": "Check for New/Modified Security Rules",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/security_rules/check_security_rules.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Weekly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "development",
+        "production"
+      ],
+      "homepage_cadence": "Weekly",
+      "markdown_path": "asset_management/security_rules/check_security_rules.md",
+      "related_markdown_paths": [
+        "tooling/qlik_cli.md"
+      ],
+      "external_references": [
+        "https://support.qlik.com/articles/000040012"
+      ]
+    },
+    {
+      "title": "Streams",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/streams.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "asset_management/streams.md",
+      "related_markdown_paths": [
+        "asset_management/streams/check_new_streams.md",
+        "asset_management/streams/remove_unused_streams.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Check for New Streams",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/streams/check_new_streams.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Weekly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "development",
+        "production"
+      ],
+      "homepage_cadence": "Weekly",
+      "markdown_path": "asset_management/streams/check_new_streams.md",
+      "related_markdown_paths": [
+        "tooling/qlik_cli.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Remove Unused Streams",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/streams/remove_unused_streams.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Monthly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "development",
+        "production"
+      ],
+      "homepage_cadence": "Monthly",
+      "markdown_path": "asset_management/streams/remove_unused_streams.md",
+      "related_markdown_paths": [
+        "tooling/qlik_cli.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Tasks",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/tasks.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "asset_management/tasks.md",
+      "related_markdown_paths": [
+        "asset_management/tasks/analyze_tasks.md",
+        "asset_management/tasks/new_tasks.md",
+        "asset_management/tasks/remove_disable_unused_tasks.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Analyze Tasks",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/tasks/analyze_tasks.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Weekly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Weekly",
+      "markdown_path": "asset_management/tasks/analyze_tasks.md",
+      "related_markdown_paths": [
+        "system_planning/optimize_batch_window.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Check for Tasks",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/tasks/new_tasks.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Weekly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Weekly",
+      "markdown_path": "asset_management/tasks/new_tasks.md",
+      "related_markdown_paths": [
+        "asset_management/tasks/analyze_tasks.md",
+        "tooling/qlik_cli.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Remove/Disable Unused Tasks",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/asset_management/tasks/remove_disable_unused_tasks.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Monthly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Monthly",
+      "markdown_path": "asset_management/tasks/remove_disable_unused_tasks.md",
+      "related_markdown_paths": [
+        "system_spot_check/tasks.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Audit",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/audit.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "audit.md",
+      "related_markdown_paths": [
+        "audit/audit_user_access.md",
+        "audit/review_data_exports.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Audit User Access",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/audit/audit_user_access.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Monthly",
+      "markdown_path": "audit/audit_user_access.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Managing_QSEoW/audit-overview.htm",
+        "https://community.qlik.com/t5/Qlik-Design-Blog/User-Environment-What-Session-Attributes-in-Qlik-Sense/ba-p/1476590"
+      ]
+    },
+    {
+      "title": "Review Data Exports",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/audit/review_data_exports.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Monthly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Monthly",
+      "markdown_path": "audit/review_data_exports.md",
+      "related_markdown_paths": [
+        "tooling/operations_monitor.md"
+      ],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense/June2019/Content/Sense_Helpsites/WhatsNew/What-is-new-June2019.htm"
+      ]
+    },
+    {
+      "title": "Backup & Archiving",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/backup_and_archiving.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "backup_and_archiving.md",
+      "related_markdown_paths": [
+        "backup_and_archiving/archive_old_archived_logs.md",
+        "backup_and_archiving/verify_backup_execution.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Archive Old Archived Logs",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/backup_and_archiving/archive_old_archived_logs.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "all"
+      ],
+      "homepage_cadence": "Quarterly",
+      "markdown_path": "backup_and_archiving/archive_old_archived_logs.md",
+      "related_markdown_paths": [],
+      "external_references": []
+    },
+    {
+      "title": "Verify/Execute Backups",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/backup_and_archiving/verify_backup_execution.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Monthly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "all"
+      ],
+      "homepage_cadence": "Monthly",
+      "markdown_path": "backup_and_archiving/verify_backup_execution.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Deploy_QSEoW/Qlik-Logging-Service.htm",
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Deploy_QSEoW/Installing-configuring-postgresql.htm",
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Deploy_QSEoW/Backing-up-certificates.htm",
+        "https://support.qlik.com/articles/000051894",
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Deploy_QSEoW/Backing-up-a-site.htm"
+      ]
+    },
+    {
+      "title": "Changelog — Qlik Sense Admin Playbook",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/changelog.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "changelog.md",
+      "related_markdown_paths": [],
+      "external_references": []
+    },
+    {
+      "title": "Qlik Sense Admin Playbook",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/home.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "home.md",
+      "related_markdown_paths": [
+        "about.md",
+        "tooling_appendix.md",
+        "system_spot_check/24_hour_summary.md",
+        "asset_management/apps/check_new_apps.md",
+        "asset_management/data_connections/analyze_data_connections.md",
+        "asset_management/apps/analyze_app_adoption.md",
+        "system_planning/plan_disaster_recovery.md",
+        "system_spot_check/telemetry.md",
+        "asset_management/apps/analyze_app_metadata_analyzer.md",
+        "asset_management/security_rules/analyze_security_rules.md",
+        "asset_management/extensions/analyze_curate_extensions.md",
+        "system_planning/plan_review_upgrade_strategy.md",
+        "system_spot_check/nodes.md",
+        "asset_management/tasks/new_tasks.md",
+        "audit/audit_user_access.md",
+        "backup_and_archiving/archive_old_archived_logs.md",
+        "system_planning/practice_recovery_processes.md",
+        "system_spot_check/tasks.md",
+        "asset_management/tasks/analyze_tasks.md",
+        "licensing/license_maintenance.md",
+        "asset_management/apps/flag_unused_base_community_sheets.md",
+        "system_planning/review_architecture_scale_plan.md",
+        "asset_management/custom_properties/custom_properties.md",
+        "asset_management/tasks/remove_disable_unused_tasks.md",
+        "system_planning/optimize_batch_window.md",
+        "asset_management/data_connections/check_new_data_connections.md",
+        "asset_management/data_connections/remove_unused_data_connections.md",
+        "asset_management/apps/optimize_sheet_order_for_adoption.md",
+        "asset_management/security_rules/check_security_rules.md",
+        "asset_management/streams/remove_unused_streams.md",
+        "asset_management/apps/remove_quarantine_unused_apps.md",
+        "asset_management/streams/check_new_streams.md",
+        "audit/review_data_exports.md",
+        "asset_management/apps/remove_unused_private_sheets.md",
+        "licensing/review_license_allocations.md",
+        "system_planning/review_disk_space.md",
+        "asset_management/qvds/review_optimize_qvds.md",
+        "backup_and_archiving/verify_backup_execution.md",
+        "asset_management/apps/review_pinning_load_balancing.md",
+        "asset_management/apps/review_app_cache_warming.md",
+        "system_planning/review_update_capacity_plan.md"
+      ],
+      "external_references": [
+        "https://www.youtube.com/embed/bVOituSKbvE?si=8KfEgxmR_6FyOWZS"
+      ]
+    },
+    {
+      "title": "Licensing",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/licensing.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "licensing.md",
+      "related_markdown_paths": [
+        "licensing/license_maintenance.md",
+        "licensing/review_license_allocations.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "License Maintenance",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/licensing/license_maintenance.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Monthly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "all"
+      ],
+      "homepage_cadence": "Monthly",
+      "markdown_path": "licensing/license_maintenance.md",
+      "related_markdown_paths": [
+        "tooling/license_monitor.md"
+      ],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Managing_QSEoW/create-professional-access-rule.htm",
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Managing_QSEoW/create-analyzer-access-rule.htm"
+      ]
+    },
+    {
+      "title": "Review License Allocations",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/licensing/review_license_allocations.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Weekly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "all"
+      ],
+      "homepage_cadence": "Weekly",
+      "markdown_path": "licensing/review_license_allocations.md",
+      "related_markdown_paths": [
+        "tooling/license_monitor.md"
+      ],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense/Subsystems/Hub/Content/Sense_Hub/Measures/trend-lines.htm",
+        "https://community.qlik.com/t5/Qlik-Sense-Documents-Videos/Calculating-trend-lines-values-and-formulas-on-charts-and-tables/ta-p/1479463"
+      ]
+    },
+    {
+      "title": "System Planning",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "system_planning.md",
+      "related_markdown_paths": [
+        "system_planning/optimize_batch_window.md",
+        "system_planning/plan_disaster_recovery.md",
+        "system_planning/plan_review_upgrade_strategy.md",
+        "system_planning/practice_recovery_processes.md",
+        "system_planning/review_architecture_scale_plan.md",
+        "system_planning/review_disk_space.md",
+        "system_planning/review_update_capacity_plan.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Optimize Batch Window",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/optimize_batch_window.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Quarterly",
+      "markdown_path": "system_planning/optimize_batch_window.md",
+      "related_markdown_paths": [
+        "tooling/reloads_monitor.md"
+      ],
+      "external_references": [
+        "https://diagnostictoolkit.qlik-poc.com/#applicationForm"
+      ]
+    },
+    {
+      "title": "Plan Disaster Recovery",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/plan_disaster_recovery.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Yearly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Yearly",
+      "markdown_path": "system_planning/plan_disaster_recovery.md",
+      "related_markdown_paths": [
+        "system_planning/practice_recovery_processes.md",
+        "backup_and_archiving/verify_backup_execution.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Plan/Review Upgrade Strategy",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/plan_review_upgrade_strategy.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Yearly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "all"
+      ],
+      "homepage_cadence": "Yearly",
+      "markdown_path": "system_planning/plan_review_upgrade_strategy.md",
+      "related_markdown_paths": [
+        "asset_management/extensions/analyze_curate_extensions.md",
+        "backup_and_archiving/verify_backup_execution.md"
+      ],
+      "external_references": [
+        "https://support.qlik.com/",
+        "https://help.qlik.com/.",
+        "https://help.qlik.com/en-US/sense/November2019/Content/Sense_Helpsites/WhatsNew/What-is-new-Nov2019.htm",
+        "https://community.qlik.com/",
+        "https://community.qlik.com/t5/Qlik-Support-Updates-Blog/bg-p/qlik-support-updates-blog"
+      ]
+    },
+    {
+      "title": "Practice Recovery Processes",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/practice_recovery_processes.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Yearly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Yearly",
+      "markdown_path": "system_planning/practice_recovery_processes.md",
+      "related_markdown_paths": [
+        "system_planning/plan_disaster_recovery.md",
+        "asset_management/apps/analyze_app_adoption.md",
+        "asset_management/tasks/analyze_tasks.md"
+      ],
+      "external_references": [
+        "https://support.qlik.com/articles/000014456",
+        "https://support.qlik.com/articles/000041283",
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Deploy_QSEoW/Restoring-a-site.htm"
+      ]
+    },
+    {
+      "title": "Review Architecture/Scale Plan",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/review_architecture_scale_plan.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Yearly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Yearly",
+      "markdown_path": "system_planning/review_architecture_scale_plan.md",
+      "related_markdown_paths": [
+        "system_planning/review_architecture_scale_plan/architecture_101.md",
+        "system_planning/review_architecture_scale_plan/load_balancing_concepts.md",
+        "system_planning/review_architecture_scale_plan/resiliency_ha.md",
+        "system_planning/review_architecture_scale_plan/example_production_architectures.md",
+        "system_planning/review_update_capacity_plan.md",
+        "tooling/cache_warming.md",
+        "asset_management/apps/review_pinning_load_balancing.md"
+      ],
+      "external_references": [
+        "https://gliffy.com/.",
+        "https://draw.io/.",
+        "https://aws.amazon.com/architecture/icons",
+        "https://www.microsoft.com/en-us/download/details.aspx?id=41937",
+        "https://cloud.google.com/icons",
+        "https://help.qlik.com/en-US/sense/Subsystems/Hub/Content/Sense_Hub/DataSource/Manage-big-data.htm",
+        "https://help.qlik.com/en-US/nprinting/Content/NPrinting/Introduction/Introduction.htm",
+        "https://help.qlik.com/en-US/insight-bot/Content/QlikInsightBot/Home.htm"
+      ]
+    },
+    {
+      "title": "Architecture 101 (Components, Terminology)",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/review_architecture_scale_plan/architecture_101.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Yearly",
+      "cadence_basis": "parent_detail_page",
+      "markdown_path": "system_planning/review_architecture_scale_plan/architecture_101.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Deploy_QSEoW/Services.htm"
+      ]
+    },
+    {
+      "title": "Example Production Architectures",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/review_architecture_scale_plan/example_production_architectures.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Yearly",
+      "cadence_basis": "parent_detail_page",
+      "markdown_path": "system_planning/review_architecture_scale_plan/example_production_architectures.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Deploy_QSEoW/Enterprise-deployment.htm"
+      ]
+    },
+    {
+      "title": "Load Balancing Concepts",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/review_architecture_scale_plan/load_balancing_concepts.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Yearly",
+      "cadence_basis": "parent_detail_page",
+      "markdown_path": "system_planning/review_architecture_scale_plan/load_balancing_concepts.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Managing_QSEoW/create-load-balancing-rules-with-custom-properties.htm"
+      ]
+    },
+    {
+      "title": "Resiliency & High Availability",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/review_architecture_scale_plan/resiliency_ha.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Yearly",
+      "cadence_basis": "parent_detail_page",
+      "markdown_path": "system_planning/review_architecture_scale_plan/resiliency_ha.md",
+      "related_markdown_paths": [],
+      "external_references": []
+    },
+    {
+      "title": "Review Disk Space",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/review_disk_space.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Monthly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "all"
+      ],
+      "homepage_cadence": "Monthly",
+      "markdown_path": "system_planning/review_disk_space.md",
+      "related_markdown_paths": [
+        "asset_management/data_connections/analyze_data_connections.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Review/Update Capacity Plan",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/review_update_capacity_plan.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Quarterly",
+      "markdown_path": "system_planning/review_update_capacity_plan.md",
+      "related_markdown_paths": [
+        "system_planning/review_update_capacity_plan/licenses.md",
+        "system_planning/review_update_capacity_plan/users.md",
+        "system_planning/review_update_capacity_plan/system.md",
+        "system_planning/review_update_capacity_plan/applications.md",
+        "system_planning/review_architecture_scale_plan.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Capacity Plan: Applications",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/review_update_capacity_plan/applications.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "parent_detail_page",
+      "markdown_path": "system_planning/review_update_capacity_plan/applications.md",
+      "related_markdown_paths": [
+        "tooling/operations_monitor.md",
+        "tooling/app_metadata_analyzer.md",
+        "asset_management/apps/analyze_app_metadata_analyzer.md"
+      ],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense/Subsystems/Hub/Content/Sense_Hub/DataSource/Manage-big-data.htm",
+        "https://help.qlik.com/en-US/nprinting/Content/NPrinting/Introduction/Introduction.htm",
+        "https://help.qlik.com/en-US/insight-bot/Content/QlikInsightBot/Home.htm"
+      ]
+    },
+    {
+      "title": "Capacity Plan: Licenses",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/review_update_capacity_plan/licenses.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "parent_detail_page",
+      "markdown_path": "system_planning/review_update_capacity_plan/licenses.md",
+      "related_markdown_paths": [
+        "tooling/license_monitor.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Capacity Plan: System",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/review_update_capacity_plan/system.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "parent_detail_page",
+      "markdown_path": "system_planning/review_update_capacity_plan/system.md",
+      "related_markdown_paths": [
+        "system_planning/review_update_capacity_plan/applications.md",
+        "tooling/operations_monitor.md",
+        "tooling/app_metadata_analyzer.md",
+        "system_planning/optimize_batch_window.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Capacity Plan: Users",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_planning/review_update_capacity_plan/users.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Quarterly",
+      "cadence_basis": "parent_detail_page",
+      "markdown_path": "system_planning/review_update_capacity_plan/users.md",
+      "related_markdown_paths": [
+        "tooling/operations_monitor.md",
+        "system_planning/review_update_capacity_plan/applications.md",
+        "licensing/review_license_allocations.md",
+        "system_planning/review_update_capacity_plan/licenses.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "System Spot Check",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_spot_check.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "system_spot_check.md",
+      "related_markdown_paths": [
+        "system_spot_check/24_hour_summary.md",
+        "system_spot_check/nodes.md",
+        "system_spot_check/tasks.md",
+        "system_spot_check/telemetry.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Review 24 Hour Summary (Ops Monitor)",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_spot_check/24_hour_summary.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Daily",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Daily",
+      "markdown_path": "system_spot_check/24_hour_summary.md",
+      "related_markdown_paths": [
+        "tooling/operations_monitor.md",
+        "system_planning/review_architecture_scale_plan.md",
+        "system_spot_check/tasks.md"
+      ],
+      "external_references": []
+    },
+    {
+      "title": "Spot-Check: Node Health",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_spot_check/nodes.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Daily",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Daily",
+      "markdown_path": "system_spot_check/nodes.md",
+      "related_markdown_paths": [
+        "tooling/qlik_cli.md"
+      ],
+      "external_references": [
+        "https://clusteringformeremortals.com/2018/10/29/step-by-step-how-to-trigger-an-email-alert-when-a-windows-service-starts-or-stops-on-windows-server-2016"
+      ]
+    },
+    {
+      "title": "Spot-Check: Tasks",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_spot_check/tasks.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Daily",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Daily",
+      "markdown_path": "system_spot_check/tasks.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://www.qlik.com/us/products/qlik-alerting",
+        "https://www.qlik.com/us/products/nprinting",
+        "https://community.qlik.com/t5/Qlik-Architecture-Deep-Dive-Blog/SMTP-appender/ba-p/1582434"
+      ]
+    },
+    {
+      "title": "Review Expensive Objects (Telemetry)",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/system_spot_check/telemetry.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "cadence": "Daily",
+      "cadence_basis": "detail_page",
+      "sites": [
+        "production"
+      ],
+      "homepage_cadence": "Daily",
+      "markdown_path": "system_spot_check/telemetry.md",
+      "related_markdown_paths": [
+        "tooling/telemetry_dashboard.md",
+        "tooling/cache_warming.md"
+      ],
+      "external_references": [
+        "https://support.qlik.com/articles/000044757",
+        "https://diagnostictoolkit.qlik-poc.com/"
+      ]
+    },
+    {
+      "title": "App Metadata Analyzer",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/tooling/app_metadata_analyzer.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "tooling/app_metadata_analyzer.md",
+      "related_markdown_paths": [
+        "asset_management/apps/analyze_app_metadata_analyzer.md"
+      ],
+      "external_references": [
+        "https://community.qlik.com/t5/Qlik-Monitoring-Administration/App-Metadata-Analyzer-Windows/gpm-p/1592163",
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Monitoring_QSEoW/app-metadata-analyzer-app.htm"
+      ]
+    },
+    {
+      "title": "Cache Warming",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/tooling/cache_warming.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "tooling/cache_warming.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://www.qlik.com/us/-/media/files/resource-library/global-us/direct/datasheets/ds-technical-brief-qlik-associative-engine-memory-management-cpu-en.pdf",
+        "https://github.com/eapowertools/CacheInitializer",
+        "https://github.com/eapowertools/CacheInitializer/releases",
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Managing_QSEoW/manage-licenses.htm",
+        "https://github.com/ptarmiganlabs/butler-cw",
+        "https://github.com/ptarmiganlabs/butler-cw#configuration-files",
+        "https://community.qlik.com/t5/Qlik-Scalability/Qlik-Sense-Scalability-Tools/gpm-p/1490846",
+        "https://www.youtube.com/watch?v=8H0JJYyUft8",
+        "https://www.youtube.com/watch?v=GiSF1yV9D9g"
+      ]
+    },
+    {
+      "title": "Data Connection Analyzer",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/tooling/data_connection_analyzer.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "tooling/data_connection_analyzer.md",
+      "related_markdown_paths": [
+        "asset_management/data_connections/analyze_data_connections.md"
+      ],
+      "external_references": [
+        "https://github.com/eapowertools/qs-data-connection-analyzer",
+        "https://github.com/eapowertools/qs-data-connection-analyzer/blob/assets/qs-data-connection-analyzer.pdf"
+      ]
+    },
+    {
+      "title": "Extension Usage Dashboard",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/tooling/extension_usage_dashboard.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "tooling/extension_usage_dashboard.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://github.com/eapowertools/qs-extension-usage-dashboard"
+      ]
+    },
+    {
+      "title": "License Monitor",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/tooling/license_monitor.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "tooling/license_monitor.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Deploy_QSEoW/Server-Logging.htm",
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Monitoring_QSEoW/Configure-monitoring-apps.htm#Configuring",
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Monitoring_QSEoW/License-monitor-app.htm",
+        "https://youtube.com/watch?v=_WywE9AXnvs",
+        "https://youtube.com/watch?v=ycGESqJME3E",
+        "https://youtube.com/watch?v=ulZw6_ZJ_ek&t=23s"
+      ]
+    },
+    {
+      "title": "Operations Monitor",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/tooling/operations_monitor.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "tooling/operations_monitor.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Deploy_QSEoW/Server-Logging.htm",
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Monitoring_QSEoW/Configure-monitoring-apps.htm#Configuring",
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Monitoring_QSEoW/Operations-monitor-app.htm",
+        "https://youtube.com/watch?v=_WywE9AXnvs",
+        "https://youtube.com/watch?v=ycGESqJME3E",
+        "https://youtube.com/watch?v=ulZw6_ZJ_ek&t=23s"
+      ]
+    },
+    {
+      "title": "Qlik CLI for Windows",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/tooling/qlik_cli.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "tooling/qlik_cli.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://github.com/ahaydon/Qlik-Cli-Windows",
+        "https://github.com/ahaydon/Qlik-Cli-Windows/wiki"
+      ]
+    },
+    {
+      "title": "QVD Monitor",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/tooling/qvd_monitor.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "tooling/qvd_monitor.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://github.com/eapowertools/qs-qvd-monitor"
+      ]
+    },
+    {
+      "title": "Reloads Monitor",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/tooling/reloads_monitor.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "tooling/reloads_monitor.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://community.qlik.com/t5/Qlik-Monitoring-Administration/Sense-Sessions-Monitor-Reloads-Monitor-Log-Monitor/gpm-p/1578597",
+        "https://help.qlik.com/en-US/sense/Subsystems/Monitoring/Content/Sense_Monitoring/Introduction/Configure-monitoring-apps.htm#Importing_",
+        "https://support.qlik.com/articles/000024083",
+        "https://help.qlik.com/en-US/sense-admin/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Monitoring_QSEoW/Reloads-monitor-app.htm",
+        "https://youtube.com/watch?v=_WywE9AXnvs",
+        "https://youtube.com/watch?v=ycGESqJME3E",
+        "https://youtube.com/watch?v=ulZw6_ZJ_ek&t=23s"
+      ]
+    },
+    {
+      "title": "Security Rule Analyzer",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/tooling/security_rule_analyzer.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "tooling/security_rule_analyzer.md",
+      "related_markdown_paths": [
+        "asset_management/security_rules/analyze_security_rules.md"
+      ],
+      "external_references": [
+        "https://github.com/eapowertools/qs-security-rule-analyzer"
+      ]
+    },
+    {
+      "title": "Telemetry Dashboard",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/tooling/telemetry_dashboard.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "tooling/telemetry_dashboard.md",
+      "related_markdown_paths": [],
+      "external_references": [
+        "https://support.qlik.com/articles/000044757",
+        "https://help.qlik.com/en-US/sense-developer/Subsystems/RepositoryServiceAPI/Content/Sense_RepositoryServiceAPI/RepositoryServiceAPI-External-Program-Task-Create.htm",
+        "https://github.com/eapowertools/qs-telemetry-dashboard/wiki/Logging",
+        "https://github.com/eapowertools/qs-telemetry-dashboard",
+        "https://www.youtube.com/watch?v=dfkoc4Dwb0g&feature=youtu.be",
+        "https://www.youtube.com/watch?v=EPLl1BODwH4&feature=youtu.be",
+        "https://www.youtube.com/watch?v=iLKOpnKbLJg&feature=youtu.be",
+        "https://www.youtube.com/watch?v=2BfZDxODhzE&feature=youtu.be"
+      ]
+    },
+    {
+      "title": "Tooling Appendix",
+      "source_url": "https://help.qlik.com/en-US/qs-admin-playbook/Content/tooling_appendix.htm",
+      "retrieved_on": "2026-09-16",
+      "content_kind": "original_summary",
+      "source_updated_raw": "3/2/2026",
+      "markdown_path": "tooling_appendix.md",
+      "related_markdown_paths": [
+        "tooling/license_monitor.md",
+        "tooling/operations_monitor.md",
+        "tooling/app_metadata_analyzer.md",
+        "tooling/reloads_monitor.md",
+        "tooling/data_connection_analyzer.md",
+        "tooling/qvd_monitor.md",
+        "tooling/security_rule_analyzer.md",
+        "tooling/telemetry_dashboard.md",
+        "tooling/extension_usage_dashboard.md",
+        "tooling/qlik_cli.md",
+        "tooling/cache_warming.md"
+      ],
+      "external_references": [
+        "https://github.com/eapowertools/qs-data-connection-analyzer",
+        "https://github.com/eapowertools/qs-qvd-monitor",
+        "https://github.com/eapowertools/qs-security-rule-analyzer",
+        "https://github.com/eapowertools/qs-telemetry-dashboard",
+        "https://github.com/eapowertools/qs-extension-usage-dashboard",
+        "https://github.com/ahaydon/Qlik-Cli-Windows"
+      ]
+    }
+  ]
+}

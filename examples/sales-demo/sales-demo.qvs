@@ -1,0 +1,611 @@
+///$tab Main
+/* =====================================================
+   TAB: Main
+   Purpose: entry point, house regional settings, script version,
+            data model documentation
+   Inputs:  none                Outputs: none
+   =====================================================
+
+   APP: Sales Demo
+   PURPOSE
+     Showcase / demo Qlik Sense SaaS app for a typical sales analytics
+     use case (orders, customers, products, calendar). Built to
+     demonstrate a proper star-schema model and house scripting
+     conventions when no real data source is available.
+
+   DATA SOURCES
+     None — all data is generated synthetically inline in the Extract
+     tab using AUTOGENERATE / RAND() / RecNo() / Pick(). There is no
+     external connection, database or file behind this app. The
+     script still follows the normal 3-tier QVD layering (Extract /
+     Transform / Data Model) so the pattern matches a production
+     script exactly; see "Design decisions and risks" in the agent
+     report for why that layering was kept even though the source is
+     synthetic.
+
+   RELOAD CADENCE
+     On demand / ad hoc for demo purposes. Each reload regenerates a
+     fresh random dataset (RAND() is not seeded) — row counts stay
+     constant but values differ reload to reload. This is expected
+     and acceptable for a demo app; flagged under Assumptions.
+
+   SECTION ACCESS
+     Not implemented. No row-level security was requested for this
+     demo app. If a future requirement needs it, add a Section Access
+     tab before Exit following the house Section Access pattern
+     (Star is *, UPPER() matching, non-author ADMIN row).
+
+   OWNER
+     Shaun Somai (script author / requester)
+
+   VERSION
+     See vL.ScriptVersion below. Bump semantically on structural
+     changes to the model or script.
+
+   DATA MODEL DIAGRAM (star schema, one fact)
+
+       DIM_Date                     DIM_Customer
+       (Order Date)                 (%CustomerKey)
+            \                             |
+             \                            |
+              \                           v
+               +---------------->  FACT_Sales  <----------------+
+                                  (%OrderLineKey)                |
+                                  grain: 1 row per order line     |
+                                                                   \
+                                                              DIM_Product
+                                                              (%ProductKey)
+
+     - DIM_Date associates to FACT_Sales purely by the shared field
+       name [Order Date] — no synthetic key. [Ship Date] is kept on
+       FACT_Sales as an unlinked attribute field (one canonical date
+       per fact); it is NOT aliased into the calendar.
+     - DIM_Customer / DIM_Product associate via single-field surrogate
+       keys %CustomerKey / %ProductKey.
+     - Single fact table, classic star: no concatenation or link table
+       was needed (see agent report, Data model section, for the
+       one-fact rationale).
+   ===================================================== */
+
+// House regional settings.
+// UNSURE — verify: no CLAUDE.md was found in the project at script
+// time, so no house regional convention could be read from it. The
+// neutral defaults below were used instead. Confirm these are correct
+// for this tenant/org and record them in CLAUDE.md so future scripts
+// stay consistent.
+SET HidePrefix='_';
+SET ThousandSep=',';
+SET DecimalSep='.';
+SET MoneyThousandSep=',';
+SET MoneyDecimalSep='.';
+SET MoneyFormat='$#,##0.00;-$#,##0.00';
+SET TimeFormat='hh:mm:ss';
+SET DateFormat='YYYY-MM-DD';
+SET TimestampFormat='YYYY-MM-DD hh:mm:ss[.fff]';
+SET FirstWeekDay=0;
+SET BrokenWeeks=0;
+SET ReferenceDay=4;
+SET FirstMonthOfYear=1;
+SET CollationLocale='en-GB';
+SET CreateSearchIndexOnReload=1;
+SET MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+SET LongMonthNames='January;February;March;April;May;June;July;August;September;October;November;December';
+SET DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
+SET LongDayNames='Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday';
+SET NumericalAbbreviation='3:k;6:M;9:G;12:T;15:P;18:E;21:Z;24:Y;-3:m;-6:μ;-9:n;-12:p;-15:f;-18:a;-21:z;-24:y';
+
+// Script version — bump semantically (major.minor.patch) on structural
+// changes to the model, tab layout or field contracts.
+LET vL.ScriptVersion = '1.0.0';
+
+// No Section Access tab in this script, so "Star is *;" is not required.
+
+
+///$tab Variables
+/* =====================================================
+   TAB: Variables
+   Purpose: all script variables, declared once, prefixed vL./vG./vD./vP./vT.
+            No variable is ever declared inline elsewhere in the script.
+   Inputs:  none                Outputs: none
+   ===================================================== */
+
+// ---- vL. run-control / row-count values ----
+LET vL.Today            = Today();
+LET vL.ScriptStartTime  = Now();
+LET vL.RowsCustomers    = 200;    // DIM_Customer target row count
+LET vL.RowsProducts     = 150;    // DIM_Product target row count
+LET vL.RowsOrderLines   = 6000;   // FACT_Sales target row count (grain: 1 row = 1 order line)
+
+// ---- vD. dates ----
+LET vD.Format  = 'YYYY-MM-DD';   // matches Main's SET DateFormat above
+LET vD.MinDate = 0;              // placeholder — overwritten dynamically in Transform from FACT_Sales' [Order Date] range
+LET vD.MaxDate = 0;              // placeholder — overwritten dynamically in Transform from FACT_Sales' [Order Date] range
+
+// ---- vP. paths — always lib://, never hard-coded/UNC ----
+// UNSURE — verify: this demo has no real data connection. 'DEMO_QVDS'
+// is a placeholder data-connection name for a QVD-capable space
+// (e.g. an app-attached or shared-space connection). It must exist in
+// the target space before this script can reload; see Suggested next
+// steps in the agent report.
+LET vP.QVD_Extract   = 'lib://DEMO_QVDS/Extract/';
+LET vP.QVD_Transform = 'lib://DEMO_QVDS/Transform/';
+
+// ---- vG. reusable expressions (parenthesised so precedence can't
+//         silently break when composed into a larger expression) ----
+SET vG.GrossMargin = (Sum([Sales Amount (USD)]) - Sum([Cost Amount (USD)]));
+SET vG.MarginPct   = (($(vG.GrossMargin)) / Sum([Sales Amount (USD)]));
+
+
+///$tab Libraries
+/* =====================================================
+   TAB: Libraries
+   Purpose: reusable subroutines, defined before use
+   Inputs:  none                Outputs: none
+   ===================================================== */
+
+// storeAndDrop: STOREs a resident table to the given QVD path, TRACEs
+// its row count, then DROPs it from memory. Used by every Extract and
+// Transform output table so STORE always happens before DROP and every
+// layer logs a row count without repeating the same three lines.
+SUB storeAndDrop(iTableName, iQvdPath)
+    LET vL.RowCount = NoOfRows('$(iTableName)');
+    STORE [$(iTableName)] INTO [$(iQvdPath)];
+    TRACE >>> $(iTableName): $(vL.RowCount) rows stored to $(iQvdPath);
+    DROP TABLE [$(iTableName)];
+END SUB
+
+
+///$tab Extract
+/* =====================================================
+   TAB: Extract
+   Purpose: generate synthetic "source" data (no external connection
+            exists for this demo) and land one QVD per source table,
+            raw and unmodified.
+   Inputs:  none (AUTOGENERATE / RAND() / RecNo() / Pick())
+   Outputs: Extract_Demo_Customers.qvd, Extract_Demo_Products.qvd,
+            Extract_Demo_OrderLines.qvd
+   ===================================================== */
+
+// -----------------------------------------------------------------
+// Extract_Demo_Customers
+// Simulates a raw customer export: source-style column names, and a
+// signup date deliberately carried as a DD/MM/YYYY text string (via
+// Text()) so the Transform layer demonstrates explicit Date#() parsing
+// rather than letting Qlik guess a format.
+// -----------------------------------------------------------------
+TMP_Customers_Seed:
+LOAD
+    RecNo()                        AS CustomerID,
+    Ceil(Rand()*8)                 AS _GeoIdx,
+    Ceil(Rand()*4)                 AS _SegIdx,
+    Ceil(Rand()*12)                AS _FNameIdx,
+    Ceil(Rand()*12)                AS _LNameIdx,
+    Floor(Today() - Rand()*1460)   AS _SignupDateNum   // up to 4 years back
+AUTOGENERATE $(vL.RowsCustomers);
+
+Extract_Demo_Customers:
+LOAD
+    CustomerID,
+    Pick(_FNameIdx,'James','Mary','Robert','Patricia','John','Jennifer','Michael','Linda','William','Elizabeth','David','Susan')
+        & ' ' &
+    Pick(_LNameIdx,'Smith','Johnson','Williams','Brown','Jones','Garcia','Miller','Davis','Rodriguez','Martinez','Hernandez','Lopez')
+                                                             AS CUST_NM,
+    Pick(_SegIdx,'Consumer','Corporate','Small Business','Enterprise')                    AS Segment,
+    Pick(_GeoIdx,'United Kingdom','United States','United States','Germany','France','Australia','Canada','Spain') AS Country,
+    Pick(_GeoIdx,'London','New York','Chicago','Berlin','Paris','Sydney','Toronto','Madrid')                       AS City,
+    Pick(_GeoIdx,'EMEA','AMER','AMER','EMEA','EMEA','APAC','AMER','EMEA')                                          AS Region,
+    Text(Date(_SignupDateNum,'DD/MM/YYYY'))                    AS SignupDateRaw
+RESIDENT TMP_Customers_Seed;
+
+DROP TABLE TMP_Customers_Seed;
+
+CALL storeAndDrop('Extract_Demo_Customers', '$(vP.QVD_Extract)Extract_Demo_Customers.qvd');
+
+// -----------------------------------------------------------------
+// Extract_Demo_Products
+// Category and Sub Category are drawn together (nested Pick keyed off
+// the same _CatIdx/_SubIdx draw) so the pairing stays realistic
+// (e.g. Electronics never pairs with a Furniture sub-category).
+// List price / unit cost carried as formatted Dual values to mirror a
+// typical source export, then stripped of formatting in Transform.
+// -----------------------------------------------------------------
+TMP_Products_Seed:
+LOAD
+    RecNo()                AS ProductID,
+    Ceil(Rand()*5)          AS _CatIdx,
+    Ceil(Rand()*3)          AS _SubIdx,
+    Ceil(Rand()*4)          AS _BrandIdx,
+    Ceil(Rand()*9000)       AS _NameSeq,
+    5 + Rand()*495          AS _ListPrice
+AUTOGENERATE $(vL.RowsProducts);
+
+Extract_Demo_Products:
+LOAD
+    ProductID,
+    Pick(_CatIdx,'Electronics','Office Supplies','Furniture','Apparel','Food & Beverage') AS Category,
+    Pick(_CatIdx,
+        Pick(_SubIdx,'Laptops','Smartphones','Accessories'),
+        Pick(_SubIdx,'Paper & Stationery','Printers','Storage'),
+        Pick(_SubIdx,'Desks','Chairs','Shelving'),
+        Pick(_SubIdx,'Outerwear','Footwear','Accessories'),
+        Pick(_SubIdx,'Snacks','Beverages','Bakery')
+    )                                                                                     AS SubCategory,
+    Pick(_BrandIdx,'Acme','Zenith','Nova','Orbit')                                        AS Brand,
+    Pick(_BrandIdx,'Acme','Zenith','Nova','Orbit') & ' ' &
+        Pick(_CatIdx,
+            Pick(_SubIdx,'Laptop','Smartphone','Accessory'),
+            Pick(_SubIdx,'Stationery Set','Printer','Storage Unit'),
+            Pick(_SubIdx,'Desk','Chair','Shelving Unit'),
+            Pick(_SubIdx,'Jacket','Shoe','Bag'),
+            Pick(_SubIdx,'Snack Pack','Beverage Case','Bakery Box')
+        ) & ' ' & _NameSeq                                                                AS PROD_NM,
+    Num(_ListPrice,'#,##0.00')                                                            AS ListPriceRaw,
+    Num(_ListPrice * (0.4 + Rand()*0.3),'#,##0.00')                                       AS UnitCostRaw
+RESIDENT TMP_Products_Seed;
+
+DROP TABLE TMP_Products_Seed;
+
+CALL storeAndDrop('Extract_Demo_Products', '$(vP.QVD_Extract)Extract_Demo_Products.qvd');
+
+// -----------------------------------------------------------------
+// Extract_Demo_OrderLines
+// Raw transactional export — the future FACT_Sales source. OrderID
+// groups roughly 2-3 lines per order (Ceil(RecNo()/2.5)), a simplified
+// but reload-safe way to simulate multi-line orders without needing a
+// separate orders header table for this demo. Dates carried as
+// DD/MM/YYYY text, exactly like the customer extract, to force
+// explicit Date#() parsing downstream.
+// -----------------------------------------------------------------
+TMP_OrderLines_Seed:
+LOAD
+    RecNo()                                            AS OrderLineID,
+    Ceil(RecNo()/2.5)                                  AS OrderID,
+    Ceil(Rand()*$(vL.RowsCustomers))                    AS CustomerID,
+    Ceil(Rand()*$(vL.RowsProducts))                     AS ProductID,
+    Floor(Today() - Rand()*730)                         AS _OrderDateNum,   // up to 2 years back
+    Ceil(Rand()*7)                                      AS _ShipLagDays,    // ships 1-7 days after order
+    Ceil(Rand()*8)                                      AS Quantity,
+    10 + Rand()*490                                     AS _UnitPrice,
+    Pick(Ceil(Rand()*5),0,0,0.05,0.1,0.15)              AS DiscountPct,     // most lines undiscounted
+    Pick(Ceil(Rand()*3),'Online','Retail','Partner')    AS SalesChannel,
+    Pick(Ceil(Rand()*8),'A. Nguyen','B. Carter','C. Patel','D. Novak','E. Silva','F. Kowalski','G. Andersen','H. Okafor') AS SalesRep
+AUTOGENERATE $(vL.RowsOrderLines);
+
+Extract_Demo_OrderLines:
+LOAD
+    OrderLineID,
+    OrderID,
+    CustomerID,
+    ProductID,
+    Text(Date(_OrderDateNum,'DD/MM/YYYY'))                 AS OrderDateRaw,
+    Text(Date(_OrderDateNum + _ShipLagDays,'DD/MM/YYYY'))  AS ShipDateRaw,
+    Quantity,
+    Num(_UnitPrice,'#,##0.00')                              AS UnitPriceRaw,
+    DiscountPct,
+    SalesChannel,
+    SalesRep
+RESIDENT TMP_OrderLines_Seed;
+
+DROP TABLE TMP_OrderLines_Seed;
+
+CALL storeAndDrop('Extract_Demo_OrderLines', '$(vP.QVD_Extract)Extract_Demo_OrderLines.qvd');
+
+
+///$tab Transform
+/* =====================================================
+   TAB: Transform
+   Purpose: cleanse the extract layer, resolve business names, build
+            keys, resolve the product-cost lookup, build the master
+            calendar. Every load in this tab is deliberately
+            non-optimised (this is the cleansing layer by design) —
+            optimised loads only start at the Data Model layer.
+   Inputs:  Extract_*.qvd       Outputs: Transform_FACT_Sales.qvd,
+                                         Transform_DIM_Customer.qvd,
+                                         Transform_DIM_Product.qvd,
+                                         Transform_DIM_Date.qvd
+   ===================================================== */
+
+// -----------------------------------------------------------------
+// DIM_Customer
+// Grain: one row per customer (%CustomerKey unique)
+// Source: Extract_Demo_Customers.qvd
+// Notes: SignupDateRaw parsed from its source DD/MM/YYYY string with
+//        Date#() then re-formatted to the house date format.
+//        _NewCustomer is a pre-computed flag (signed up in the last
+//        90 days) so the front end can use set analysis instead of
+//        an If() inside an aggregation.
+// -----------------------------------------------------------------
+TMP_Customers:
+LOAD * FROM [$(vP.QVD_Extract)Extract_Demo_Customers.qvd] (qvd);
+
+DIM_Customer:
+LOAD
+    CustomerID                                                   AS %CustomerKey,
+    Trim(CUST_NM)                                                AS [Customer Name],
+    Segment                                                      AS [Segment],
+    Country                                                      AS [Country],
+    City                                                         AS [City],
+    Region                                                       AS [Region],
+    Date(Date#(SignupDateRaw,'DD/MM/YYYY'),'$(vD.Format)')       AS [Signup Date],
+    If(Today() - Date#(SignupDateRaw,'DD/MM/YYYY') <= 90, 1, 0)  AS _NewCustomer
+RESIDENT TMP_Customers;
+
+DROP TABLE TMP_Customers;
+
+TAG FIELD [Customer Name] WITH '$dimension';
+TAG FIELD [Segment] WITH '$dimension';
+TAG FIELD [Country] WITH '$dimension';
+TAG FIELD [City] WITH '$dimension';
+TAG FIELD [Region] WITH '$dimension';
+
+// Dimension key uniqueness check
+TMP_CustomerKeyCheck:
+LOAD
+    Count(%CustomerKey)          AS RowCount,
+    Count(DISTINCT %CustomerKey) AS DistinctCount
+RESIDENT DIM_Customer;
+
+LET vL.CustCount    = Peek('RowCount', 0, 'TMP_CustomerKeyCheck');
+LET vL.CustDistinct = Peek('DistinctCount', 0, 'TMP_CustomerKeyCheck');
+IF $(vL.CustCount) <> $(vL.CustDistinct) THEN
+    TRACE >>> WARNING: DIM_Customer %CustomerKey is not unique ($(vL.CustCount) rows vs $(vL.CustDistinct) distinct);
+ELSE
+    TRACE >>> DIM_Customer %CustomerKey uniqueness OK ($(vL.CustDistinct) customers);
+END IF
+DROP TABLE TMP_CustomerKeyCheck;
+
+CALL storeAndDrop('DIM_Customer', '$(vP.QVD_Transform)Transform_DIM_Customer.qvd');
+
+
+// -----------------------------------------------------------------
+// DIM_Product
+// Grain: one row per product (%ProductKey unique)
+// Source: Extract_Demo_Products.qvd
+// Notes: ListPriceRaw / UnitCostRaw arrive as formatted Dual values
+//        (simulating a typical source export) and are stripped back
+//        to plain numerics with Floor(x*100)/100 — formatting belongs
+//        on the front-end master measure, not on the stored field.
+// -----------------------------------------------------------------
+TMP_Products:
+LOAD * FROM [$(vP.QVD_Extract)Extract_Demo_Products.qvd] (qvd);
+
+DIM_Product:
+LOAD
+    ProductID                    AS %ProductKey,
+    Trim(PROD_NM)                AS [Product Name],
+    Category                     AS [Category],
+    SubCategory                  AS [Sub Category],
+    Brand                        AS [Brand],
+    Floor(ListPriceRaw*100)/100  AS [List Price (USD)],
+    Floor(UnitCostRaw*100)/100   AS [Unit Cost (USD)]
+RESIDENT TMP_Products;
+
+DROP TABLE TMP_Products;
+
+TAG FIELD [Product Name] WITH '$dimension';
+TAG FIELD [Category] WITH '$dimension';
+TAG FIELD [Sub Category] WITH '$dimension';
+TAG FIELD [Brand] WITH '$dimension';
+TAG FIELD [List Price (USD)] WITH '$measure';
+TAG FIELD [Unit Cost (USD)] WITH '$measure';
+
+// Dimension key uniqueness check
+TMP_ProductKeyCheck:
+LOAD
+    Count(%ProductKey)          AS RowCount,
+    Count(DISTINCT %ProductKey) AS DistinctCount
+RESIDENT DIM_Product;
+
+LET vL.ProdCount    = Peek('RowCount', 0, 'TMP_ProductKeyCheck');
+LET vL.ProdDistinct = Peek('DistinctCount', 0, 'TMP_ProductKeyCheck');
+IF $(vL.ProdCount) <> $(vL.ProdDistinct) THEN
+    TRACE >>> WARNING: DIM_Product %ProductKey is not unique ($(vL.ProdCount) rows vs $(vL.ProdDistinct) distinct);
+ELSE
+    TRACE >>> DIM_Product %ProductKey uniqueness OK ($(vL.ProdDistinct) products);
+END IF
+DROP TABLE TMP_ProductKeyCheck;
+
+// Single-field lookup used by FACT_Sales below to resolve transacted
+// unit cost per line — built from DIM_Product while it is still
+// resident, dropped again once FACT_Sales has consumed it.
+MAP_ProductCost:
+MAPPING LOAD
+    %ProductKey,
+    [Unit Cost (USD)]
+RESIDENT DIM_Product;
+
+CALL storeAndDrop('DIM_Product', '$(vP.QVD_Transform)Transform_DIM_Product.qvd');
+
+
+// -----------------------------------------------------------------
+// FACT_Sales
+// Grain: one row per order line
+// Source: Extract_Demo_OrderLines.qvd
+// Notes: Unit Cost resolved via MAP_ProductCost (single-field lookup,
+//        default 0 explained: an unmatched product would indicate a
+//        broken extract, so 0 cost makes the gap visible in margin
+//        rather than silently dropping the row). Gross Sales /
+//        Discount Amount / Sales Amount / Cost Amount are all
+//        pre-calculated here (three stacked preceding loads) so the
+//        front end uses stored measures and set analysis rather than
+//        If()/derived math inside chart expressions.
+// -----------------------------------------------------------------
+TMP_OrderLines:
+LOAD * FROM [$(vP.QVD_Extract)Extract_Demo_OrderLines.qvd] (qvd);
+
+FACT_Sales:
+LOAD
+    *,
+    Round([Quantity] * [Unit Cost (USD)], 0.01) AS [Cost Amount (USD)];
+LOAD
+    *,
+    Round([Quantity] * [Unit Price (USD)], 0.01)                        AS [Gross Sales (USD)],
+    Round([Quantity] * [Unit Price (USD)] * [Discount Pct], 0.01)       AS [Discount Amount (USD)],
+    Round([Quantity] * [Unit Price (USD)] * (1 - [Discount Pct]), 0.01) AS [Sales Amount (USD)],
+    ApplyMap('MAP_ProductCost', %ProductKey, 0)                         AS [Unit Cost (USD)];
+LOAD
+    OrderLineID                                             AS %OrderLineKey,
+    OrderID                                                 AS [Order ID],
+    CustomerID                                               AS %CustomerKey,
+    ProductID                                                AS %ProductKey,
+    Date(Date#(OrderDateRaw,'DD/MM/YYYY'),'$(vD.Format)')     AS [Order Date],
+    Date(Date#(ShipDateRaw,'DD/MM/YYYY'),'$(vD.Format)')      AS [Ship Date],
+    Quantity                                                 AS [Quantity],
+    Floor(UnitPriceRaw*100)/100                                AS [Unit Price (USD)],
+    DiscountPct                                                AS [Discount Pct],
+    SalesChannel                                               AS [Sales Channel],
+    SalesRep                                                   AS [Sales Rep],
+    1                                                          AS #OrderLineCounter,
+    Now()                                                      AS _LoadTime,
+    'Demo Generator'                                           AS _Source
+RESIDENT TMP_OrderLines;
+
+DROP TABLE TMP_OrderLines;
+
+// MAP_ProductCost is deliberately NOT dropped. A mapping table is not part
+// of the data model, so DROP TABLE cannot resolve it and the reload aborts.
+// Qlik discards mapping tables itself at the end of the script. Verified on
+// Qlik engine 12.2759.12: the identical script with the DROP present fails
+// to reload; without it the model contains only the real tables.
+
+TAG FIELD [Order ID] WITH '$dimension';
+TAG FIELD [Quantity] WITH '$measure';
+TAG FIELD [Unit Price (USD)] WITH '$measure';
+TAG FIELD [Gross Sales (USD)] WITH '$measure';
+TAG FIELD [Discount Amount (USD)] WITH '$measure';
+TAG FIELD [Sales Amount (USD)] WITH '$measure';
+TAG FIELD [Unit Cost (USD)] WITH '$measure';
+TAG FIELD [Cost Amount (USD)] WITH '$measure';
+TAG FIELD [Sales Channel] WITH '$dimension';
+TAG FIELD [Sales Rep] WITH '$dimension';
+
+// Dimension/fact key sanity check on the fact's own row key
+TMP_FactKeyCheck:
+LOAD
+    Count(%OrderLineKey)          AS RowCount,
+    Count(DISTINCT %OrderLineKey) AS DistinctCount
+RESIDENT FACT_Sales;
+
+LET vL.FactCount    = Peek('RowCount', 0, 'TMP_FactKeyCheck');
+LET vL.FactDistinct = Peek('DistinctCount', 0, 'TMP_FactKeyCheck');
+IF $(vL.FactCount) <> $(vL.FactDistinct) THEN
+    TRACE >>> WARNING: FACT_Sales %OrderLineKey is not unique ($(vL.FactCount) rows vs $(vL.FactDistinct) distinct);
+ELSE
+    TRACE >>> FACT_Sales %OrderLineKey uniqueness OK ($(vL.FactDistinct) order lines);
+END IF
+DROP TABLE TMP_FactKeyCheck;
+
+
+// -----------------------------------------------------------------
+// DIM_Date (master calendar)
+// Grain: one row per calendar date
+// Source: derived from FACT_Sales' min/max [Order Date] (built while
+//         FACT_Sales is still resident, below)
+// Notes: associates to FACT_Sales purely via the shared field name
+//        [Order Date] — no synthetic key, since exactly one other
+//        table (FACT_Sales) carries that field name. [Ship Date] is
+//        the fact's only other date and is deliberately left
+//        unlinked (one canonical date per fact); if ship-date
+//        analysis becomes a requirement, add a proper canonical-date
+//        pattern (aliased calendar or link table) rather than a
+//        second direct association to DIM_Date.
+// -----------------------------------------------------------------
+TMP_DateRange:
+LOAD Min([Order Date]) AS MinDate, Max([Order Date]) AS MaxDate
+RESIDENT FACT_Sales;
+
+LET vD.MinDate = Peek('MinDate', 0, 'TMP_DateRange');
+LET vD.MaxDate = Peek('MaxDate', 0, 'TMP_DateRange');
+DROP TABLE TMP_DateRange;
+
+TMP_DateSeed:
+LOAD
+    Date($(vD.MinDate) + IterNo() - 1, '$(vD.Format)') AS [Order Date]
+AUTOGENERATE 1
+WHILE $(vD.MinDate) + IterNo() - 1 <= $(vD.MaxDate);
+
+DIM_Date:
+LOAD
+    [Order Date],
+    Year([Order Date])                                            AS [Calendar Year],
+    Month([Order Date])                                           AS [Month Number],
+    Date([Order Date],'MMM')                                      AS [Month Name],
+    Date(MonthStart([Order Date]),'MMM-YYYY')                     AS [Month Year],
+    'Q' & Ceil(Month([Order Date])/3)                              AS [Quarter Label],
+    'Q' & Ceil(Month([Order Date])/3) & '-' & Year([Order Date])   AS [Quarter Year],
+    Week([Order Date])                                            AS [Week Number],
+    WeekYear([Order Date])                                        AS [Week Year],
+    Day([Order Date])                                             AS [Day of Month],
+    Date([Order Date],'ddd')                                      AS [Day Name],
+    If(WeekDay([Order Date]) >= 5, 1, 0)                          AS _IsWeekend,
+    If(Year([Order Date]) = Year(Today()), 1, 0)                  AS _IsCurrentYear,
+    If(Year([Order Date]) = Year(Today())
+       and Month([Order Date]) = Month(Today()), 1, 0)            AS _IsCurrentMonth
+RESIDENT TMP_DateSeed;
+
+DROP TABLE TMP_DateSeed;
+
+TAG FIELD [Calendar Year] WITH '$dimension';
+TAG FIELD [Month Name] WITH '$dimension';
+TAG FIELD [Quarter Label] WITH '$dimension';
+
+// Calendar coverage / uniqueness check
+TMP_DateKeyCheck:
+LOAD
+    Count([Order Date])          AS RowCount,
+    Count(DISTINCT [Order Date]) AS DistinctCount
+RESIDENT DIM_Date;
+
+LET vL.DateCount    = Peek('RowCount', 0, 'TMP_DateKeyCheck');
+LET vL.DateDistinct = Peek('DistinctCount', 0, 'TMP_DateKeyCheck');
+IF $(vL.DateCount) <> $(vL.DateDistinct) THEN
+    TRACE >>> WARNING: DIM_Date [Order Date] is not unique ($(vL.DateCount) rows vs $(vL.DateDistinct) distinct);
+ELSE
+    TRACE >>> DIM_Date covers $(vL.DateDistinct) calendar days ($(vD.MinDate) to $(vD.MaxDate));
+END IF
+DROP TABLE TMP_DateKeyCheck;
+
+CALL storeAndDrop('DIM_Date', '$(vP.QVD_Transform)Transform_DIM_Date.qvd');
+CALL storeAndDrop('FACT_Sales', '$(vP.QVD_Transform)Transform_FACT_Sales.qvd');
+
+
+///$tab Data Model
+/* =====================================================
+   TAB: Data Model
+   Purpose: thin, optimised loads only — no transformations, no
+            aliases, no WHERE beyond single-argument WHERE EXISTS().
+            This is what actually ends up in the app's data model.
+   Inputs:  Transform_*.qvd     Outputs: none (in-memory tables)
+   ===================================================== */
+
+FACT_Sales:
+LOAD * FROM [$(vP.QVD_Transform)Transform_FACT_Sales.qvd] (qvd);
+
+DIM_Customer:
+LOAD * FROM [$(vP.QVD_Transform)Transform_DIM_Customer.qvd] (qvd);
+
+DIM_Product:
+LOAD * FROM [$(vP.QVD_Transform)Transform_DIM_Product.qvd] (qvd);
+
+DIM_Date:
+LOAD * FROM [$(vP.QVD_Transform)Transform_DIM_Date.qvd] (qvd);
+
+
+///$tab Exit
+/* =====================================================
+   TAB: Exit
+   Purpose: final safety net (nothing temporary should remain in
+            memory — every TMP_/MAP_ table was dropped in the tab
+            that created it), closing trace, script exit.
+   Inputs:  none                Outputs: none
+   ===================================================== */
+
+TRACE >>> ------------------------------------------------------;
+TRACE >>> Sales Demo reload complete — script version $(vL.ScriptVersion);
+TRACE >>> FACT_Sales: $(vL.RowsOrderLines) synthetic order lines targeted;
+TRACE >>> DIM_Customer: $(vL.RowsCustomers) synthetic customers targeted;
+TRACE >>> DIM_Product: $(vL.RowsProducts) synthetic products targeted;
+TRACE >>> Started $(vL.ScriptStartTime), finished $(Now());
+TRACE >>> ------------------------------------------------------;
+
+EXIT SCRIPT;

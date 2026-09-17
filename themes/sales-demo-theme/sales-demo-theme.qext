@@ -1,0 +1,8 @@
+{
+  "name": "Sales Demo Theme",
+  "description": "Validated categorical and sequential palette for the Sales Demo app. Eight categorical slots in fixed order (never re-assigned by series count), a single-hue blue magnitude ramp, and a red-to-blue variance scale with a neutral midpoint. Passes lightness-band, chroma-floor, colour-vision-deficiency and normal-vision separation checks against Qlik's white chart surface.",
+  "type": "theme",
+  "version": "1.0.0",
+  "author": "Shaun Somai",
+  "license": "MIT"
+}
