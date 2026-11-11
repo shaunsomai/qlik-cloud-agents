@@ -1,6 +1,6 @@
 # qlik-cloud-agents
 
-Independent Claude Code plugin for Qlik cloud. Version 2.1.2.
+Independent Claude Code plugin for Qlik cloud. Version 2.1.3.
 
 ## Install
 
