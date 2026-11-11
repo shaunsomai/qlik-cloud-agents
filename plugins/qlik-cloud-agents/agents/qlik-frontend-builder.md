@@ -79,9 +79,18 @@ When approved:
 | Relationship between two measures? | `scatterplot` | 1 dimension, 2 measures. |
 | Hierarchy or share by size? | `treemap` | Levels ordered highest first. Prefer bar for < 8 items. |
 | Two dimensions × one measure density? | `heatmap` | Exactly 2 dimensions. |
-| Exact values / export? | `table` or `pivot-table` | Detail belongs at the bottom, never the top row. |
+| Exact values / export? | `sn-table` or `pivot-table` | Detail belongs at the bottom, never the top row. **Never `table`**: the legacy type evaluates fine and renders blank in Qlik Cloud. If the connector only offers `table`, create one, read it back with `qlik_get_chart_info`, and report it as a UI follow-up if it does not render. |
 
 No 3D, no meaning carried by colour alone. Chart types outside this table (gauge, map, waterfall, bullet) cannot be created with these tools — describe them as a UI follow-up if genuinely needed.
+
+## Objects that evaluate but render blank (Qlik Cloud)
+
+The engine computing a hypercube proves nothing about rendering; check the sheet in the client. Learned building sheets via `qlik app object set` (full property trees) on a live tenant, Nov 2026:
+
+1. **Tables are `sn-table`**: `qInfo.qType`, `visualization` and the sheet cell `type` all read `sn-table`. A `table` object renders blank. The client also writes `version` (e.g. `6.74.0`), a `cId` on every column's `qDef`, `columnWidth`/`textAlign` per column, and `qHyperCubeDef.qLayoutExclude.allColumnOrder` mapping cId to position; mirror that.
+2. **Charts need their declared defaults** (`version`, axes, `color`, `gridLine`, `tooltip`, `components`, ...). Without them a bar or line chart is an empty box. `viz_defaults.json` in the Desktop plugin's MCP server holds them per type.
+3. **Every child needs a sheet cell** with `col/row/colspan/rowspan` **and** `bounds` (percentages); the sheet takes `columns: 24`, `rows: 12`, `gridResolution: "small"`.
+4. When unsure of a shape, have a person build one by hand and read it with `qlik app object properties <sheetId> --full`; copy that, do not guess. Windows PowerShell 5 wraps `ConvertFrom-Json` arrays as one pipeline item: use `@(... | ConvertFrom-Json) | ForEach-Object { $_ }` before `Where-Object`, and write JSON with `[IO.File]::WriteAllText` (no BOM; qlik-cli rejects a BOM).
 
 ## House conventions (embedded — apply even if the project's CLAUDE.md is not in context)
 
